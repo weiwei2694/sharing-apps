@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { objectId } = require('./custom.validation');
 
 const createPost = {
   body: Joi.object().keys({
@@ -30,6 +31,6 @@ const deletePost = {
 module.exports = {
   createPost,
   getPosts,
-  createPost,
+  deletePost,
   getPost,
 };

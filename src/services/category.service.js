@@ -14,10 +14,25 @@ const getCategories = async (categoryId) => {
   if (typeof categoryId !== 'undefined') {
     return prisma.category.findUnique({
       where: { id: categoryId },
+      include: {
+        posts: {
+          include: {
+            category: true,
+          },
+        },
+      },
     });
   }
 
-  return prisma.category.findMany({});
+  return prisma.category.findMany({
+    include: {
+      posts: {
+        include: {
+          category: true,
+        },
+      },
+    },
+  });
 };
 
 const deleteCategory = async (categoryId) => {

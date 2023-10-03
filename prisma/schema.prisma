@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,24 +8,43 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  name      String
-  email     String?    @unique
-  password  String    
-  role      String    @default("user")
-  createdAt DateTime  @default(now())
-  updateAt  DateTime  @default(now())
-  isEmailVerified Boolean @default(false)
-  tokens    Token[]
+  id              String   @id @default(uuid())
+  name            String   @db.Char(30)
+  username        String   @unique @db.Char(30)
+  email           String?  @unique @db.Char(100)
+  password        String
+  role            String   @default("user")
+  createdAt       DateTime @default(now())
+  updateAt        DateTime @default(now())
+  isEmailVerified Boolean  @default(false)
+  tokens          Token[]
+  posts           Post[]
 }
+
+model Post {
+  id        String     @id @default(uuid())
+  title     String     @db.Char(50)
+  body      String     @db.Text
+  userId    String
+  createdAt DateTime   @default(now())
+  User      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category  Category[]
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  String @db.Char(30)
+  posts Post[]
+}
+
 model Token {
-  id        String    @id @default(uuid())
-  token     String    @db.VarChar(400)
-  userId    String    
-  User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  type      String
-  expires   DateTime
-  blacklisted Boolean @default(false)
-  createdAt DateTime  @default(now())
-  updateAt  DateTime  @default(now())
+  id          String   @id @default(uuid())
+  token       String   @db.VarChar(400)
+  userId      String
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        String
+  expires     DateTime
+  blacklisted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updateAt    DateTime @default(now())
 }

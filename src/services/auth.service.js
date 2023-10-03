@@ -1,10 +1,10 @@
 const httpStatus = require('http-status');
+const bcrypt = require('bcryptjs');
 const tokenService = require('./token.service');
 const userService = require('./user.service');
-const prisma = require('../../prisma/client')
+const prisma = require('../../prisma/client');
 const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
-const bcrypt = require('bcryptjs');
 
 /**
  * Login with username and password
@@ -29,12 +29,12 @@ const loginUserWithEmailAndPassword = async (email, password) => {
  */
 const logout = async (refreshToken) => {
   const refreshTokenDoc = await prisma.token.findFirst({
-    where: { token: refreshToken, type: tokenTypes.REFRESH, blacklisted: false }
+    where: { token: refreshToken, type: tokenTypes.REFRESH, blacklisted: false },
   });
   if (!refreshTokenDoc) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Not found');
   }
-  await prisma.token.delete({where: {id: refreshTokenDoc.id}})
+  await prisma.token.delete({ where: { id: refreshTokenDoc.id } });
 };
 
 /**
@@ -50,11 +50,10 @@ const refreshAuth = async (refreshToken) => {
       throw new Error();
     }
     await prisma.token.delete({
-      where: {id: refreshTokenDoc.id}
-    })
+      where: { id: refreshTokenDoc.id },
+    });
     return tokenService.generateAuthTokens(user);
   } catch (error) {
-    console.log(error)
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
   }
 };
@@ -74,7 +73,7 @@ const resetPassword = async (resetPasswordToken, newPassword) => {
     }
     await userService.updateUserById(user.id, { password: newPassword });
     await prisma.token.deleteMany({
-      where: { userId: user.id, type: tokenTypes.RESET_PASSWORD }
+      where: { userId: user.id, type: tokenTypes.RESET_PASSWORD },
     });
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
@@ -94,7 +93,7 @@ const verifyEmail = async (verifyEmailToken) => {
       throw new Error();
     }
     await prisma.token.deleteMany({
-      where: { userId: user.id, type: tokenTypes.VERIFY_EMAIL }
+      where: { userId: user.id, type: tokenTypes.VERIFY_EMAIL },
     });
     await userService.updateUserById(user.id, { isEmailVerified: true });
   } catch (error) {

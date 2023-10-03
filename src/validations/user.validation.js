@@ -3,20 +3,10 @@ const { password, objectId } = require('./custom.validation');
 
 const createUser = {
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
+    name: Joi.string().required().max(30),
+    username: Joi.string().required().case('lower').replace(' ', '').max(30),
+    email: Joi.string().required().email().max(100),
     password: Joi.string().required().custom(password),
-    name: Joi.string().required(),
-    role: Joi.string().required().valid('user', 'admin'),
-  }),
-};
-
-const getUsers = {
-  query: Joi.object().keys({
-    name: Joi.string(),
-    role: Joi.string(),
-    sortBy: Joi.string(),
-    limit: Joi.number().integer(),
-    page: Joi.number().integer(),
   }),
 };
 
@@ -30,13 +20,10 @@ const updateUser = {
   params: Joi.object().keys({
     userId: Joi.required().custom(objectId),
   }),
-  body: Joi.object()
-    .keys({
-      email: Joi.string().email(),
-      password: Joi.string().custom(password),
-      name: Joi.string(),
-    })
-    .min(1),
+  body: Joi.object().keys({
+    name: Joi.string().required().max(30),
+    username: Joi.string().required().max(30),
+  }),
 };
 
 const deleteUser = {
@@ -47,7 +34,6 @@ const deleteUser = {
 
 module.exports = {
   createUser,
-  getUsers,
   getUser,
   updateUser,
   deleteUser,

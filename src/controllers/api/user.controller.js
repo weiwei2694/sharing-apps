@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
-const ApiError = require('../utils/ApiError');
-const catchAsync = require('../utils/catchAsync');
-const { userService } = require('../services');
+const ApiError = require('../../utils/ApiError');
+const catchAsync = require('../../utils/catchAsync');
+const { userService } = require('../../services');
 
 const createUser = catchAsync(async (req, res) => {
   const { username, email } = req.body;
@@ -44,10 +44,10 @@ const getUser = catchAsync(async (req, res) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
 
-  const isAdmin = req.user.role === 'admin'
-  const isSameUserId = req.user.id === userId
+  const isAdmin = req.user.role === 'admin';
+  const isSameUserId = req.user.id === userId;
 
-  if (!isAdmin && !isSameUserId) throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden')
+  if (!isAdmin && !isSameUserId) throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
 
   res.status(httpStatus.OK).send({
     status: httpStatus.OK,
@@ -63,8 +63,8 @@ const updateUser = catchAsync(async (req, res) => {
   const existingUser = await userService.getUserById(userId);
   if (!existingUser) throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
 
-  const isAdmin = req.user.role === 'admin'
-  const isSameUserId = req.user.id === userId
+  const isAdmin = req.user.role === 'admin';
+  const isSameUserId = req.user.id === userId;
 
   if (!isAdmin && !isSameUserId) throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
 
@@ -90,11 +90,11 @@ const deleteUser = catchAsync(async (req, res) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
 
-  const isAdmin = req.user.role === 'admin'
-  const isSameUserId = req.user.id === userId
+  const isAdmin = req.user.role === 'admin';
+  const isSameUserId = req.user.id === userId;
 
   if (isAdmin && isSameUserId) {
-    throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden')
+    throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
   }
 
   await userService.deleteUserById(userId);

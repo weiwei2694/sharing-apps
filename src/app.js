@@ -17,7 +17,7 @@ const apiRoutes = require('./routes/api');
 const ejsRoutes = require('./routes/ejs');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
 
 const app = express();
 
@@ -41,9 +41,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(flash());
 app.use(expressLayouts);
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(__dirname + '/public'));
 
 // method override
-app.use(methodOverride('_method'))
+app.use(methodOverride('_method'));
 
 // set security HTTP headers
 app.use(helmet());

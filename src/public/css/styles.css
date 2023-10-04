@@ -1,0 +1,21 @@
+.card__layout-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.card__layout-container__paragraph {
+  white-space: break-spaces;
+}
+
+@media (max-width: 1024px) {
+  .card__layout-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .card__layout-container {
+    grid-template-columns: 1fr;
+  }
+}

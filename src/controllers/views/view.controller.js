@@ -2,9 +2,14 @@ const catchAsync = require('../../utils/catchAsync');
 const { userService, postService, categoryService } = require('../../services');
 
 const getHome = catchAsync(async (req, res) => {
+  const posts = await postService.getPosts();
+
+  console.info(posts)
+
   res.render('pages/home', {
     layout: 'layouts/protect',
     user: req.user,
+    posts
   });
 });
 

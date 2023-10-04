@@ -1,1 +1,36 @@
-<h1>Home</h1>
+<section class="d-flex flex-column gap-2 gap-md-4">
+  <div class="d-flex justify-content-end">
+    <a href="/post/create" class="btn btn-primary">Create Post</a>
+  </div>
+  <div class="card__layout-container">
+    <% if (typeof posts !=='undefined' ) { %>
+      <% posts.forEach(function(post) { %>
+        <div class="card" style="height: fit-content;">
+          <div class="card-header d-flex align-items-center gap-1">
+            <a href="/user/<%= post.user.id %>">
+              @<%= post.user.username %>
+            </a>
+            ·
+            <italic class="underline" style="font-size: 13px;">
+              <u>
+                <%= new Date(post.createdAt).toLocaleDateString() %>
+              </u>
+            </italic>
+          </div>
+          <div class="card-body">
+            <h5 class="cart-title">
+              <a href="/post/<%= post.id %>">
+                <u>
+                  <%= post.title %>
+                </u>
+              </a>
+            </h5>
+            <p class="card-text">
+              <%= post.body %>
+            </p>
+          </div>
+        </div>
+        <% }) %>
+          <% } %>
+  </div>
+</section>

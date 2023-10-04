@@ -50,7 +50,12 @@ const getPosts = async (userId) => {
     return userPosts.posts;
   }
 
-  return prisma.post.findMany();
+  return prisma.post.findMany({
+    include: {
+      category: true,
+      user: true
+    }
+  });
 };
 
 const getPost = async (postId) => {

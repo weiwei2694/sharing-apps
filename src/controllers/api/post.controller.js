@@ -15,6 +15,11 @@ const getPosts = catchAsync(async (req, res) => {
 });
 
 const createPost = catchAsync(async (req, res) => {
+  const { userId } = req.body;
+  const isSameUserId = req.user.id === userId;
+
+  if (!isSameUserId) throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+
   const post = await postService.createPost(req.body);
 
   res.status(httpStatus.CREATED).send({
@@ -47,6 +52,12 @@ const deletePost = catchAsync(async (req, res) => {
   if (!existingPost) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
   }
+
+  const isAdmin = req.user.role === 'admin';
+  const { userId } = existingPost;
+  const isSameUserId = req.user.id === userId;
+
+  if (!isAdmin && !isSameUserId) throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
 
   await postService.deletePost(postId);
 

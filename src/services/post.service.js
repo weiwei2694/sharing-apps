@@ -3,15 +3,28 @@ const prisma = require('../../prisma/client');
 const createPost = async (postBody) => {
   const { userId, title, body, firstCategory, secondCategory } = postBody;
 
+  const postData = {
+    userId,
+    title,
+    body,
+  };
+
+  if (firstCategory && secondCategory) {
+    postData.category = {
+      connect: [{ id: firstCategory }, { id: secondCategory }],
+    };
+  } else if (firstCategory) {
+    postData.category = {
+      connect: { id: firstCategory },
+    };
+  } else if (secondCategory) {
+    postData.category = {
+      connect: { id: secondCategory },
+    };
+  }
+
   return prisma.post.create({
-    data: {
-      userId,
-      title,
-      body,
-      // category: {
-      //   connect: [{ id: firstCategory }, { id: secondCategory }],
-      // },
-    },
+    data: postData,
   });
 };
 

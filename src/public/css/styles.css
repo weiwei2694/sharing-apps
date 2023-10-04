@@ -8,6 +8,104 @@
   white-space: break-spaces;
 }
 
+.detailPost {
+  width: 100%;
+  max-width: 680px;
+  margin-inline: auto;
+  margin-block: 2.5rem;
+}
+
+.detailPost__heading {
+  font-weight: 800;
+  letter-spacing: -0.011em;
+  color: var(--black-100);
+  font-family: var(--font-mukta);
+  line-height: 52px;
+  font-size: 42px;
+}
+
+.detailPost__subheading {
+  font-weight: normal;
+  letter-spacing: inherit;
+  font-family: var(--font-mukta);
+  color: var(--black-100);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.detailPost__paragraph {
+  margin-top: 1rem;
+  font-size: 20px;
+  font-family: var(--font-source-serif);
+  font-weight: normal;
+  color: var(--black-100);
+  line-height: 32px;
+  letter-spacing: -0.003em;
+  text-align: start;
+  white-space: pre-line;
+}
+
+.detailPost__back {
+  color: var(--black-100);
+  font-family: var(--font-mukta);
+  font-weight: 500;
+  letter-spacing: inherit;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.detailPost__back:hover {
+  color: var(--black-100);
+}
+
+.detailPost__modal-heading {
+  font-weight: bold;
+  letter-spacing: -0.011em;
+  color: black;
+  font-family: var(--font-mukta);
+  font-size: 20px;
+  user-select: none;
+}
+
+.detailPost__modal-paragraph {
+  font-weight: bold;
+  letter-spacing: inherit;
+  font-size: 16px;
+  font-weight: normal;
+  font-family: var(--font-mukta);
+  color: #536471;
+  line-height: 20px;
+  user-select: none;
+}
+
+.detailPost__modal-button {
+  font-size: 15px;
+  height: 42px;
+  line-height: 21px;
+  padding: 0 24px;
+  border-radius: 50px;
+  border: 0;
+  outline: 0;
+  font-family: var(--font-mukta);
+  font-weight: 500;
+  letter-spacing: inherit;
+  width: 100%;
+}
+
+.detailPost__modal-button__delete {
+  margin-bottom: 12px;
+  background-color: var(--red-100);
+  color: white;
+}
+
+.detailPost__modal-button__cancel {
+  border: 1px solid rgb(213, 213, 213);
+  background-color: white;
+}
+
 @media (max-width: 1024px) {
   .card__layout-container {
     grid-template-columns: 1fr 1fr;
@@ -17,5 +115,16 @@
 @media (max-width: 768px) {
   .card__layout-container {
     grid-template-columns: 1fr;
+  }
+
+  .detailPost__heading {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .detailPost__paragraph {
+    font-size: 18px;
+    line-height: 28px;
+    margin-top: 0.5rem;
   }
 }

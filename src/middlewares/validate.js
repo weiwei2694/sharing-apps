@@ -12,8 +12,8 @@ const validate = (schema, type) => (req, res, next) => {
 
   const typeResponsed = {
     api: 'api',
-    views: 'views'
-  }
+    views: 'views',
+  };
 
   if (error && typeResponsed[type] === 'api') {
     const errorMessage = error.details.map((details) => details.message).join(', ');

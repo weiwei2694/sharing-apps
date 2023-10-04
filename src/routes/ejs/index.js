@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const { checkAuthenticated, checkNotAuthenticated, adminRoleLocal } = require('../../middlewares/auth.local');
-const { viewController, authController } = require('../../controllers/views/');
+const { viewController, authController, postController } = require('../../controllers/views');
 
 const {
   getHome,
@@ -15,6 +15,7 @@ const {
   getRegister,
 } = viewController;
 const { register, logout } = authController;
+const { deletePost } = postController;
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.get('/', checkAuthenticated, getHome);
 router.get('/user/:username', checkAuthenticated, getUsernameProfile);
 router.get('/user/:username/edit-profile', checkAuthenticated, getUsernameProfileEdit);
 router.get('/post/create', checkAuthenticated, getPostCreate);
-router.get('/post/:postId', checkAuthenticated, getPostDetailPost);
+router.route('/post/:postId').get(checkAuthenticated, getPostDetailPost).delete(checkAuthenticated, deletePost);
 // admin route
 router.get('/category', checkAuthenticated, adminRoleLocal, getCategory);
 router.get('/category/create', checkAuthenticated, adminRoleLocal, getCategoryCreate);
@@ -41,9 +42,6 @@ router
     })
   );
 router.delete('/logout', checkAuthenticated, logout);
-router
-  .route('/register')
-  .get(checkNotAuthenticated, getRegister)
-  .post(checkNotAuthenticated, register);
+router.route('/register').get(checkNotAuthenticated, getRegister).post(checkNotAuthenticated, register);
 
 module.exports = router;

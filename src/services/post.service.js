@@ -53,8 +53,8 @@ const getPosts = async (userId) => {
   return prisma.post.findMany({
     include: {
       category: true,
-      user: true
-    }
+      user: true,
+    },
   });
 };
 
@@ -63,6 +63,7 @@ const getPost = async (postId) => {
     where: { id: postId },
     include: {
       category: true,
+      user: true,
     },
   });
 };

@@ -1,1 +1,22 @@
-<h1>Edit Profile <%= username %></h1>
+<section class="row d-flex justify-content-center">
+  <div class="col-lg-6">
+    <% if (typeof errors !=='undefined' ) { %>
+      <% errors.forEach(function(error) { %>
+        <div class="alert alert-danger" role="alert">
+          <%= error %>
+        </div>
+        <% }) %>
+          <% } %>
+            <form action="/user/<%= user.id %>?_method=PUT" method="post">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="name" class="form-control" id="name" name="name" value="<%= typeof name !== 'undefined' ? name : user.name %>">
+              </div>
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="username" class="form-control" id="username" name="username" value="<%= typeof username !== 'undefined' ? username : user.username %>">
+              </div>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+  </div>
+</section>

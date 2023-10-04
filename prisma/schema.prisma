@@ -27,13 +27,13 @@ model Post {
   body      String     @db.Text
   userId    String
   createdAt DateTime   @default(now())
-  User      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   category  Category[]
 }
 
 model Category {
   id    String @id @default(uuid())
-  name  String @db.Char(30)
+  name  String @unique @db.Char(30)
   posts Post[]
 }
 

@@ -15,6 +15,14 @@ const getCategories = catchAsync(async (req, res) => {
 });
 
 const createCategory = catchAsync(async (req, res) => {
+  const { name } = req.body;
+
+  const existingCategory = await categoryService.getCategoryByName(name);
+
+  if (existingCategory) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
+  }
+
   const category = await categoryService.createCategory(req.body);
 
   res.status(httpStatus.CREATED).send({
@@ -34,11 +42,7 @@ const deleteCategory = catchAsync(async (req, res) => {
 
   await categoryService.deleteCategory(categoryId);
 
-  res.status(httpStatus.OK).send({
-    status: httpStatus.OK,
-    message: 'Delete Category Success',
-    data: null,
-  });
+  res.status(httpStatus.NO_CONTENT).send();
 });
 
 module.exports = {

@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,200;8..60,300;8..60,400;8..60,500;8..60,600;8..60,700;8..60,800;8..60,900&display=swap');
+
+:root {
+  --font-source-serif: 'Source Serif 4', serif;
+  --font-mukta: 'Mukta', sans-serif;
+  --black-100: #242424;
+  --red-100: #f4212e;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999; /* Sit on top */
+  padding-top: 200px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: white;
+  margin: auto;
+  padding: 32px;
+  border-radius: 2rem;
+  max-width: 320px;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  user-select: none;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 46px;
+  right: 0;
+  background-color: white;
+  min-width: 200px;
+  border-radius: 0.5rem;
+  padding: 0;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  overflow: hidden;
+  list-style-type: none !important;
+  list-style: none !important;
+}
+
+/* Links inside the dropdown */
+.dropdown-content li {
+  color: var(--black-100);
+  font-family: var(--font-mukta);
+  font-weight: 500;
+  padding: 8px 16px;
+  background-color: white;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dropdown-content li i {
+  width: 14px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content li:hover {
+  background-color: rgb(248, 248, 248);
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}

@@ -3,7 +3,7 @@ const { objectId } = require('./custom.validation');
 
 const createPost = {
   body: Joi.object().keys({
-    userId: Joi.string().custom(objectId),
+    userId: Joi.string().required().custom(objectId),
     title: Joi.string().required().max(50),
     body: Joi.string().required(),
     firstCategory: Joi.string().optional(),

@@ -3,15 +3,28 @@ const prisma = require('../../prisma/client');
 const createPost = async (postBody) => {
   const { userId, title, body, firstCategory, secondCategory } = postBody;
 
+  const postData = {
+    userId,
+    title,
+    body,
+  };
+
+  if (firstCategory && secondCategory) {
+    postData.category = {
+      connect: [{ id: firstCategory }, { id: secondCategory }],
+    };
+  } else if (firstCategory) {
+    postData.category = {
+      connect: { id: firstCategory },
+    };
+  } else if (secondCategory) {
+    postData.category = {
+      connect: { id: secondCategory },
+    };
+  }
+
   return prisma.post.create({
-    data: {
-      userId,
-      title,
-      body,
-      // category: {
-      //   connect: [{ id: firstCategory }, { id: secondCategory }],
-      // },
-    },
+    data: postData,
   });
 };
 
@@ -37,7 +50,12 @@ const getPosts = async (userId) => {
     return userPosts.posts;
   }
 
-  return prisma.post.findMany();
+  return prisma.post.findMany({
+    include: {
+      category: true,
+      user: true,
+    },
+  });
 };
 
 const getPost = async (postId) => {
@@ -45,6 +63,7 @@ const getPost = async (postId) => {
     where: { id: postId },
     include: {
       category: true,
+      user: true,
     },
   });
 };

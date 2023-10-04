@@ -10,10 +10,23 @@ const validate = (schema, type) => (req, res, next) => {
     .prefs({ errors: { label: 'key' }, abortEarly: false })
     .validate(object);
 
-  if (error && type === 'api') {
+  const typeResponsed = {
+    api: 'api',
+    views: 'views'
+  }
+
+  if (error && typeResponsed[type] === 'api') {
     const errorMessage = error.details.map((details) => details.message).join(', ');
     return next(new ApiError(httpStatus.BAD_REQUEST, errorMessage));
   }
+  if (error && typeResponsed[type] === 'views') {
+    return error.details.map((details) => details.message);
+  }
+
+  if (!error && typeResponsed[type] === 'views') {
+    return;
+  }
+
   Object.assign(req, value);
   return next();
 };

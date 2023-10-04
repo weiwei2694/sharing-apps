@@ -40,7 +40,7 @@ const getUserByEmail = async (email) => {
 };
 
 const updateUserById = async (userId, updateBody) => {
-  const { name } = updateBody;
+  const { name, username } = updateBody;
 
   const updateUser = await prisma.user.update({
     where: {
@@ -48,6 +48,7 @@ const updateUserById = async (userId, updateBody) => {
     },
     data: {
       name,
+      username,
     },
   });
 

@@ -1,1 +1,61 @@
-<h1>Profile <%= user.username %></h1>
+<section class="d-flex flex-column">
+  <div class="p-5 text-center bg-image" style="
+      background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
+      height: 600px;
+      border-radius: 50px;
+    ">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.1);">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-white">
+          <h1 class="detailPost__heading mb-3">
+            <%= user.name %>
+          </h1>
+          <h5 class="detailPost__subheading d-flex justify-content-center">
+            <% if (user.role==='user' ) { %>
+              <i class="fa-solid fa-user" style="color: #242424;"></i>
+              <% } else { %>
+                <i class="fa-solid fa-crown" style="color: gold;"></i>
+                <% } %>
+                  <%= user.username %>
+          </h5>
+          <% if (enabledEditing) { %>
+            <a href="/user/<%= user.username %>/edit-profile" class="btn btn-light">Edit Profile</a>
+            <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+  </div>
+  <div class="card__layout-container" style="margin-top: 2rem;">
+    <% if (typeof posts !=='undefined' ) { %>
+      <% posts.forEach(function(post) { %>
+        <div class="card" style="height: fit-content;">
+          <div class="card-header d-flex align-items-center gap-1">
+            <a href="/user/<%= user.id %>">
+              @<%= user.username %>
+            </a>
+            ·
+            <italic class="underline" style="font-size: 13px;">
+              <u>
+                <%= new Date(post.createdAt).toLocaleDateString() %>
+              </u>
+            </italic>
+          </div>
+          <div class="card-body">
+            <h5 class="cart-title">
+              <a href="/post/<%= post.id %>">
+                <u>
+                  <%= post.title %>
+                </u>
+              </a>
+            </h5>
+            <p class="card-text">
+              <%= post.body %>
+            </p>
+          </div>
+        </div>
+        <% }) %>
+          <% } %>
+  </div>
+</section>

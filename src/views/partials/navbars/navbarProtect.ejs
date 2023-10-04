@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/user/<%= user.username %>">Profile</a>
+        <a class="nav-link" href="/user/<%= currentUserUsername %>">Profile</a>
       </div>
     </div>
     <form class="d-none d-lg-block" action="/logout?_method=DELETE" method="post">

@@ -7,6 +7,7 @@ const getHome = catchAsync(async (req, res) => {
   res.render('pages/home', {
     layout: 'layouts/protect',
     user: req.user,
+    currentUserUsername: req.user.username,
     posts,
   });
 });
@@ -18,23 +19,27 @@ const getUsernameProfile = catchAsync(async (req, res) => {
   if (!currentUser) {
     return res.render('pages/404', {
       layout: 'layouts/protect',
+      currentUserUsername: req.user.username,
     });
   }
+
+  const posts = await postService.getPosts(currentUser.id);
+
+  const fields = {
+    layout: 'layouts/protect',
+    enabledEditing: true,
+    user: currentUser,
+    currentUserUsername: req.user.username,
+    posts,
+  };
 
   const isSameUserId = currentUser.id === req.user.id;
   if (!isSameUserId) {
-    return res.render('pages/profile', {
-      layout: 'layouts/protect',
-      enableEditing: false,
-      user: currentUser,
-    });
+    fields.enabledEditing = false;
+    return res.render('pages/profile', fields);
   }
 
-  res.render('pages/profile', {
-    layout: 'layouts/protect',
-    user: req.user,
-    enableEditing: true,
-  });
+  res.render('pages/profile', fields);
 });
 
 const getUsernameProfileEdit = catchAsync(async (req, res) => {
@@ -42,7 +47,10 @@ const getUsernameProfileEdit = catchAsync(async (req, res) => {
 
   const currentUser = await userService.getUserByUsername(username);
   if (!currentUser) {
-    return res.redirect(`pages/404`);
+    return res.render(`pages/404`, {
+      layout: 'layouts/protect',
+      currentUserUsername: req.user.username,
+    });
   }
 
   const isSameUserId = currentUser.id === req.user.id;
@@ -51,7 +59,9 @@ const getUsernameProfileEdit = catchAsync(async (req, res) => {
   }
 
   res.render('pages/edit-profile', {
+    layout: 'layouts/protect',
     user: req.user,
+    currentUserUsername: req.user.username,
   });
 });
 
@@ -71,11 +81,13 @@ const getPostDetailPost = catchAsync(async (req, res) => {
     post: dataPost,
     enableDelete: true,
     user: req.user,
+    currentUserUsername: req.user.username,
   };
 
   if (!dataPost) {
-    res.render('pages/404', {
+    return res.render('pages/404', {
       layout: 'layouts/protect',
+      currentUserUsername: req.user.username,
     });
   }
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const { checkAuthenticated, checkNotAuthenticated, adminRoleLocal } = require('../../middlewares/auth.local');
-const { viewController, authController, postController } = require('../../controllers/views');
+const { viewController, authController, postController, userController } = require('../../controllers/views');
 
 const {
   getHome,
@@ -16,12 +16,14 @@ const {
 } = viewController;
 const { register, logout } = authController;
 const { deletePost } = postController;
+const { updateUser } = userController;
 
 const router = express.Router();
 
 // protect route
 router.get('/', checkAuthenticated, getHome);
 router.get('/user/:username', checkAuthenticated, getUsernameProfile);
+router.put('/user/:userId', checkAuthenticated, updateUser);
 router.get('/user/:username/edit-profile', checkAuthenticated, getUsernameProfileEdit);
 router.get('/post/create', checkAuthenticated, getPostCreate);
 router.route('/post/:postId').get(checkAuthenticated, getPostDetailPost).delete(checkAuthenticated, deletePost);

@@ -33,7 +33,7 @@ model Post {
 
 model Category {
   id    String @id @default(uuid())
-  name  String @db.Char(30)
+  name  String @unique @db.Char(30)
   posts Post[]
 }
 

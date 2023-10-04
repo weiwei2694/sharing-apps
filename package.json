@@ -55,6 +55,7 @@
     "http-status": "^1.4.0",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "nodemailer": "^6.3.1",

@@ -1,63 +1,50 @@
-<div>
-  <% if(typeof error !== 'undefined' ) { %>
-      <div class="alert alert-danger" role="alert">
-        <%= error %>
-      </div>
-  <% } %>
+<section class="row d-flex justify-content-center">
+  <div class="col-lg-6">
+    <% if (typeof errors !=='undefined' ) { %>
+      <% errors.forEach(function(error) { %>
+        <div class="alert alert-danger" role="alert">
+          <%= error %>
+        </div>
+        <% }) %>
+            <% } %>
 
-  <% if(typeof success_msg !== 'undefined' ) { %>
-      <div class="alert alert-success" role="alert">
-        <%= success_msg %>
-        <a href="/login">Login</a>
-      </div>
-  <% } %>
+              <% if(typeof success_msg !=='undefined' ) { %>
+                <div class="alert alert-success" role="alert">
+                  <%= success_msg %>
+                    <a href="/login">Login</a>
+                </div>
+                <% } %>
 
-  <form action="/register" method="POST">
-    <div class="mb-3">
-      <label for="name" class="form-label">Name</label>
-      <input
-        type="text"
-        class="form-control"
-        name="name"
-        id="name"
-        value=<%=typeof name !=="undefined" ? name : "" %>
-      >
-    </div>
-    <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
-      <input
-        type="text"
-        class="form-control"
-        name="username"
-        id="username"
-        value=<%=typeof username !=="undefined" ? username : "" %>
-      >
-    </div>
-    <div class="mb-3">
-      <label for="email" class="form-label">Email address</label>
-      <input
-        type="email"
-        class="form-control"
-        name="email"
-        id="email"
-        value=<%=typeof email !=="undefined" ? email : ""
-        %>
-      >
-    </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        name="password"
-        id="password"
-        value=<%=typeof password !=="undefined" ? password : "" %>
-      >
-    </div>
-    <div class="mb-3">
-      <a href="/login">Login</a>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+                  <form action="/register" method="post">
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Name</label>
+                      <input type="text" class="form-control" name="name" id="name" value=<%=typeof name !=="undefined"
+                        ? name : "" %>
+                      >
+                    </div>
+                    <div class="mb-3">
+                      <label for="username" class="form-label">Username</label>
+                      <input type="text" class="form-control" name="username" id="username" value=<%=typeof username
+                        !=="undefined" ? username : "" %>
+                      >
+                    </div>
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email address</label>
+                      <input type="email" class="form-control" name="email" id="email" value=<%=typeof email
+                        !=="undefined" ? email : "" %>
+                      >
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control" name="password" id="password" value=<%=typeof password
+                        !=="undefined" ? password : "" %>
+                      >
+                    </div>
+                    <div class="mb-3">
+                      <a href="/login">Login</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+  </div>
   </form>
 
-</div>
+</section>

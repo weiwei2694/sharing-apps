@@ -8,9 +8,9 @@ const createPost = async (postBody) => {
       userId,
       title,
       body,
-      category: {
-        connect: [{ id: firstCategory }, { id: secondCategory }],
-      },
+      // category: {
+      //   connect: [{ id: firstCategory }, { id: secondCategory }],
+      // },
     },
   });
 };

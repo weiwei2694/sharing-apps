@@ -43,7 +43,6 @@ const getUser = catchAsync(async (req, res) => {
   if (!existingUser) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-
   const isAdmin = req.user.role === 'admin';
   const isSameUserId = req.user.id === userId;
 

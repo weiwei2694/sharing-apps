@@ -27,7 +27,7 @@ model Post {
   body      String     @db.Text
   userId    String
   createdAt DateTime   @default(now())
-  User      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   category  Category[]
 }
 

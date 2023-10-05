@@ -23,7 +23,7 @@ const {
 const { register, logout } = authController;
 const { deletePost, createPost } = postController;
 const { updateUser } = userController;
-const { deleteCategory } = categoryController;
+const { deleteCategory, createCategory } = categoryController;
 
 const router = express.Router();
 
@@ -38,7 +38,10 @@ router.post('/post/create', checkAuthenticated, createPost);
 router.route('/post/:postId').get(checkAuthenticated, getPostDetailPost).delete(checkAuthenticated, deletePost);
 // admin route
 router.get('/category', checkAuthenticated, adminRoleLocal, getCategory);
-router.get('/category/create', checkAuthenticated, adminRoleLocal, getCategoryCreate);
+router
+  .route('/category/create')
+  .get(checkAuthenticated, adminRoleLocal, getCategoryCreate)
+  .post(checkAuthenticated, adminRoleLocal, createCategory);
 router.delete('/category/:categoryId', checkAuthenticated, adminRoleLocal, deleteCategory);
 
 // Unprotect Route

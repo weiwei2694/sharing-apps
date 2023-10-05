@@ -28,8 +28,8 @@ const createPost = async (postBody) => {
   }
 
   return prisma.post.create({
-    data: postData
-  })
+    data: postData,
+  });
 };
 
 const deletePost = async (postId) => {

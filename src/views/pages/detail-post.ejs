@@ -24,13 +24,13 @@
                   </u>
                 </italic>
       </h5>
-      <!-- Button trigger modal -->
       <div class="dropdown">
         <button type="button" onclick="myFunction()" class="btn btn-light dropbtn">
           <i class="fa-solid fa-ellipsis dropbtn" style="color: #242424;"></i>
         </button>
         <ul id="myDropdown" class="dropdown-content">
           <% if (user.role==="admin" || user.id===post.user.id) { %>
+            <!-- Button trigger modal -->
             <li style="color: var(--red-100);" id="myBtn">
               <i class="fa-solid fa-trash"></i>
               <span>

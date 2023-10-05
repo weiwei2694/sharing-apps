@@ -7,7 +7,7 @@
       <% posts.forEach(function(post) { %>
         <div class="card" style="height: fit-content;">
           <div class="card-header d-flex align-items-center gap-1">
-            <a style="font-family: var(--font-mukta); color: var(--black-100);" href="/user/<%= post.user.id %>">
+            <a style="font-family: var(--font-mukta); color: var(--black-100);" href="/user/<%= post.user.username %>">
               @<%= post.user.username %>
             </a>
             ·

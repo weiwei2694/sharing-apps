@@ -1,7 +1,13 @@
 const express = require('express');
 const passport = require('passport');
 const { checkAuthenticated, checkNotAuthenticated, adminRoleLocal } = require('../../middlewares/auth.local');
-const { viewController, authController, postController, userController } = require('../../controllers/views');
+const {
+  viewController,
+  authController,
+  postController,
+  userController,
+  categoryController,
+} = require('../../controllers/views');
 
 const {
   getHome,
@@ -17,6 +23,7 @@ const {
 const { register, logout } = authController;
 const { deletePost, createPost } = postController;
 const { updateUser } = userController;
+const { deleteCategory } = categoryController;
 
 const router = express.Router();
 
@@ -32,6 +39,7 @@ router.route('/post/:postId').get(checkAuthenticated, getPostDetailPost).delete(
 // admin route
 router.get('/category', checkAuthenticated, adminRoleLocal, getCategory);
 router.get('/category/create', checkAuthenticated, adminRoleLocal, getCategoryCreate);
+router.delete('/category/:categoryId', checkAuthenticated, adminRoleLocal, deleteCategory);
 
 // Unprotect Route
 router

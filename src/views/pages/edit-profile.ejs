@@ -1,22 +1,22 @@
-<section class="row d-flex justify-content-center">
-  <div class="col-lg-6">
-    <% if (typeof errors !=='undefined' ) { %>
-      <% errors.forEach(function(error) { %>
-        <div class="alert alert-danger" role="alert">
-          <%= error %>
-        </div>
-        <% }) %>
-          <% } %>
-            <form action="/user/<%= user.id %>?_method=PUT" method="post">
-              <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="name" class="form-control" id="name" name="name" value="<%= typeof name !== 'undefined' ? name : user.name %>">
-              </div>
-              <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="username" class="form-control" id="username" name="username" value="<%= typeof username !== 'undefined' ? username : user.username %>">
-              </div>
-              <button type="submit" class="btn btn-primary">Update</button>
-            </form>
-  </div>
+<section class="max-w-4xl mx-auto py-12 2xl:py-16">
+  <% if (typeof errors !=='undefined' ) { %>
+    <% errors.forEach(function(error) { %>
+      <div class="alert__danger" role="alert">
+        <%= error %>
+      </div>
+      <% }) %>
+        <% } %>
+          <form action="/user/<%= user.id %>?_method=PUT" method="post" class="form">
+            <div class="flex flex-col">
+              <label for="name" class="form__label">Name</label>
+              <input type="name" class="form__input" id="name" name="name"
+                value="<%= typeof name !== 'undefined' ? name : user.name %>">
+            </div>
+            <div class="flex flex-col">
+              <label for="username" class="form__label">Username</label>
+              <input type="username" class="form__input" id="username" name="username"
+                value="<%= typeof username !== 'undefined' ? username : user.username %>">
+            </div>
+            <button type="submit" class="btn__primary">Update</button>
+          </form>
 </section>

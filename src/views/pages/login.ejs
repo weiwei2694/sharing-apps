@@ -1,24 +1,27 @@
-<section class="row d-flex justify-content-center">
+<section class="max-w-4xl mx-auto">
   <div class="col-6">
     <% if (messages.error) { %>
-      <div class="alert alert-danger" role="alert">
+      <div class="alert__danger" role="alert">
         <%= messages.error %>
       </div>
-        <% } %>
-          <form action="/login" method="post">
-            <div class="mb-3">
-              <label for="email" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="email" name="email">
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" name="password">
-            </div>
-            <div class="mb-3">
-              <a href="/register">Register</a>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-          </form>
+      <% } %>
+        <form action="/login" method="post" class="form">
+          <div class="flex flex-col">
+            <label for="email" class="form__label">Email address</label>
+            <input type="email" class="form__input" id="email" name="email">
+          </div>
+          <div class="flex flex-col">
+            <label for="password" class="form__label">Password</label>
+            <input type="password" class="form__input" id="password" name="password">
+          </div>
+          <div class="flex flex-1 justify-end">
+            <h5 class="font-source-serif font-normal flex gap-x-2 items-center">
+              Haven't got an account?
+              <a href="/register" class="font-bold text-blue-500 font-mukta">Sign Up</a>
+            </h5>
+          </div>
+          <button type="submit" class="btn__primary">Login</button>
+        </form>
 
   </div>
 </section>

@@ -1,61 +1,59 @@
-<section class="d-flex flex-column">
-  <div class="p-5 text-center bg-image" style="
-      background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
-      height: 600px;
-      border-radius: 50px;
-    ">
-    <div class="mask" style="background-color: rgba(0, 0, 0, 0.1);">
-      <div class="d-flex justify-content-center align-items-center h-100">
-        <div class="text-white">
-          <h1 class="detailPost__heading mb-3">
-            <%= user.name %>
-          </h1>
-          <h5 class="detailPost__subheading d-flex justify-content-center">
+<section class="max-w-4xl mx-auto flex flex-col space-y-6 py-12 2xl:py-16">
+  <div class="flex items-start justify-between">
+    <div>
+      <h1 class="detailPost__heading">
+        <%= user.name %>
+      </h1>
+      <div class="flex items-center gap-x-3">
+        <h5 class="detailPost__subheading !text-light-gray-600 flex items-center gap-x-1">
+          <span class="text-xs">
             <% if (user.role==='user' ) { %>
-              <i class="fa-solid fa-user" style="color: #242424;"></i>
+              <i class="fa-solid fa-user text-black-100"></i>
               <% } else { %>
                 <i class="fa-solid fa-crown" style="color: gold;"></i>
                 <% } %>
-                  <%= user.username %>
-          </h5>
-          <% if (enabledEditing) { %>
-            <a href="/user/<%= user.username %>/edit-profile" class="btn btn-light">Edit Profile</a>
-            <% } %>
-        </div>
+          </span>
+          <%= user.username %>
+        </h5>
+        <p class="detailPost__subheading text-light-gray-600">
+          <%= posts.length %> posts
+        </p>
       </div>
     </div>
+    <% if (enabledEditing) { %>
+      <div>
+        <a href="/user/<%= currentUserUsername %>/edit-profile" class="btn__primary !py-1 !rounded-full">
+          Edit Profile
+        </a>
+      </div>
+      <% } %>
   </div>
-  <div>
-  </div>
-  <div class="card__layout-container" style="margin-top: 2rem;">
-    <% if (typeof posts !=='undefined' ) { %>
+  <div class="flex flex-col space-y-4 w-ful">
+    <% if (posts?.length) { %>
       <% posts.forEach(function(post) { %>
-        <div class="card" style="height: fit-content;">
-          <div class="card-header d-flex align-items-center gap-1">
-            <a href="/user/<%= user.id %>">
-              @<%= user.username %>
-            </a>
-            ·
-            <italic class="underline" style="font-size: 13px;">
-              <u>
-                <%= new Date(post.createdAt).toLocaleDateString() %>
-              </u>
-            </italic>
-          </div>
-          <div class="card-body">
-            <h5 class="cart-title">
-              <a href="/post/<%= post.id %>">
-                <u>
-                  <%= post.title %>
-                </u>
-              </a>
-            </h5>
-            <p class="card-text">
-              <%= post.body %>
+        <div class="flex flex-col border-b border-b-light-gray-400 py-4">
+          <div class="flex items-center gap-x-2 w-fit">
+            <p class="text-sm font-mukta text-light-gray-800">
+              <%= new Date(post.createdAt).toLocaleDateString() %>
             </p>
           </div>
+          <h2 class="font-extrabold font-mukta text-2xl text-black-100 cursor-pointer w-fit">
+            <a href="/post/<%= post.id %>" target="_blank">
+              <%= post.title %>
+            </a>
+          </h2>
+          <p class="whitespace-pre-line -mt-4 font-source-serif font-normal text-black-100">
+            <%= post.body.slice(0, 99) %>
+              <% if (post.body.length> 99) { %>
+                <a href="/post/<%= post.id %>">...Go to post</a>
+                <% } %>
+          </p>
         </div>
         <% }) %>
-          <% } %>
+          <% } else { %>
+            <div class="flex justify-start items-start max-sm:mt-6 sm:mt-12">
+              <p class="text-light-gray-600 font-medium font-source-serif">No Results</p>
+            </div>
+            <% } %>
   </div>
 </section>

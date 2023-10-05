@@ -1,5 +1,12 @@
-const { postService } = require('../../services');
+const validate = require('../../middlewares/validate');
+const { postService, categoryService } = require('../../services');
 const catchAsync = require('../../utils/catchAsync');
+const { postValidation } = require('../../validations');
+
+// layout
+function layout(role) {
+  return role === 'admin' ? 'layouts/admin' : 'layouts/protect';
+}
 
 const deletePost = catchAsync(async (req, res) => {
   const { postId } = req.params;
@@ -14,6 +21,35 @@ const deletePost = catchAsync(async (req, res) => {
   res.redirect('/');
 });
 
+const createPost = catchAsync(async (req, res, next) => {
+  const userId = req.user.id;
+  req.body = {
+    ...req.body,
+    userId,
+  };
+
+  const categories = await categoryService.getCategories();
+
+  const fields = {
+    layout: layout(req.user.role),
+    errors: [],
+    currentUserUsername: req.user.username,
+    categories,
+  };
+
+  const responsedValidate = validate(postValidation.createPost, 'views')(req, res, next);
+
+  if (typeof responsedValidate !== 'undefined') {
+    fields.errors.push(...responsedValidate);
+    return res.render('pages/create-post', fields);
+  }
+
+  await postService.createPost(req.body);
+
+  res.redirect('/');
+});
+
 module.exports = {
   deletePost,
+  createPost,
 };

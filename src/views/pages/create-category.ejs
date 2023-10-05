@@ -1,1 +1,22 @@
-<h1>Create Category</h1>
+<section class="py-12 2xl:py-16 max-w-4xl mx-auto">
+  <div class="col-lg-6">
+    <% if (typeof errors !=='undefined' ) { %>
+      <% errors.forEach(function(error) { %>
+        <div class="alert__danger" role="alert">
+          <%= error %>
+        </div>
+        <% }) %>
+          <% } %>
+            <form action="/category/create" method="post" class="form">
+              <div class="flex flex-col">
+                <label for="name" class="form__label">Name</label>
+                <input type="text" class="form__input" name="name" id="name" value=<%=typeof name !=="undefined" ? name
+                  : "" %>
+                >
+              </div>
+              <button type="submit" class="btn__primary">
+                Create Category
+              </button>
+            </form>
+  </div>
+</section>

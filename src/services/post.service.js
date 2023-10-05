@@ -1,3 +1,4 @@
+const categoryService = require('./category.service');
 const prisma = require('../../prisma/client');
 
 const createPost = async (postBody) => {
@@ -9,15 +10,18 @@ const createPost = async (postBody) => {
     body,
   };
 
-  if (firstCategory && secondCategory) {
+  const firstCategoryData = await categoryService.getCategoryById(firstCategory);
+  const secondCategoryData = await categoryService.getCategoryById(secondCategory);
+
+  if (firstCategoryData && secondCategoryData) {
     postData.category = {
       connect: [{ id: firstCategory }, { id: secondCategory }],
     };
-  } else if (firstCategory) {
+  } else if (firstCategoryData) {
     postData.category = {
       connect: { id: firstCategory },
     };
-  } else if (secondCategory) {
+  } else if (secondCategoryData) {
     postData.category = {
       connect: { id: secondCategory },
     };
@@ -68,9 +72,26 @@ const getPost = async (postId) => {
   });
 };
 
+const getPostsByCategory = async (categoryName) => {
+  if (!categoryName) return;
+
+  return prisma.category.findFirst({
+    where: { name: categoryName },
+    include: {
+      posts: {
+        include: {
+          category: true,
+          user: true,
+        },
+      },
+    },
+  });
+};
+
 module.exports = {
   createPost,
   getPost,
   getPosts,
   deletePost,
+  getPostsByCategory,
 };

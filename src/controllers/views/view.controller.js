@@ -1,14 +1,31 @@
 const catchAsync = require('../../utils/catchAsync');
 const { userService, postService, categoryService } = require('../../services');
 
+// layout
+function layout(role) {
+  return role === 'admin' ? 'layouts/admin' : 'layouts/protect';
+}
+
 const getHome = catchAsync(async (req, res) => {
-  const posts = await postService.getPosts();
+  const currentCategory = req.query.category;
+
+  let posts;
+  if (typeof currentCategory !== 'undefined') {
+    const result = await postService.getPostsByCategory(currentCategory);
+    posts = result?.posts;
+  } else {
+    posts = await postService.getPosts();
+  }
+
+  const categories = await categoryService.getCategories();
 
   res.render('pages/home', {
-    layout: 'layouts/protect',
+    layout: layout(req.user.role),
     user: req.user,
     currentUserUsername: req.user.username,
     posts,
+    categories,
+    currentCategory,
   });
 });
 
@@ -18,7 +35,7 @@ const getUsernameProfile = catchAsync(async (req, res) => {
   const currentUser = await userService.getUserByUsername(username);
   if (!currentUser) {
     return res.render('pages/404', {
-      layout: 'layouts/protect',
+      layout: layout(req.user.role),
       currentUserUsername: req.user.username,
     });
   }
@@ -26,7 +43,7 @@ const getUsernameProfile = catchAsync(async (req, res) => {
   const posts = await postService.getPosts(currentUser.id);
 
   const fields = {
-    layout: 'layouts/protect',
+    layout: layout(req.user.role),
     enabledEditing: true,
     user: currentUser,
     currentUserUsername: req.user.username,
@@ -48,7 +65,7 @@ const getUsernameProfileEdit = catchAsync(async (req, res) => {
   const currentUser = await userService.getUserByUsername(username);
   if (!currentUser) {
     return res.render(`pages/404`, {
-      layout: 'layouts/protect',
+      layout: layout(req.user.role),
       currentUserUsername: req.user.username,
     });
   }
@@ -59,15 +76,20 @@ const getUsernameProfileEdit = catchAsync(async (req, res) => {
   }
 
   res.render('pages/edit-profile', {
-    layout: 'layouts/protect',
+    layout: layout(req.user.role),
     user: req.user,
     currentUserUsername: req.user.username,
   });
 });
 
 const getPostCreate = catchAsync(async (req, res) => {
+  const categories = await categoryService.getCategories();
+
   res.render('pages/create-post', {
+    layout: layout(req.user.role),
     user: req.user,
+    categories,
+    currentUserUsername: req.user.username,
   });
 });
 
@@ -77,7 +99,7 @@ const getPostDetailPost = catchAsync(async (req, res) => {
   const dataPost = await postService.getPost(postId);
 
   const fields = {
-    layout: 'layouts/protect',
+    layout: layout(req.user.role),
     post: dataPost,
     enableDelete: true,
     user: req.user,
@@ -103,12 +125,16 @@ const getCategory = catchAsync(async (req, res) => {
   const categories = await categoryService.getCategories();
 
   res.render('pages/categories', {
+    layout: layout(req.user.role),
+    currentUserUsername: req.user.username,
     categories,
   });
 });
 
 const getCategoryCreate = catchAsync(async (req, res) => {
   res.render('pages/create-category', {
+    layout: layout(req.user.role),
+    currentUserUsername: req.user.username,
     user: req.user,
   });
 });

@@ -12,7 +12,7 @@ const createCategory = async (categoryBody) => {
 
 const getCategories = async (categoryId) => {
   if (typeof categoryId !== 'undefined') {
-    return prisma.category.findUnique({
+    return prisma.category.findMany({
       where: { id: categoryId },
       include: {
         posts: {
@@ -36,8 +36,18 @@ const getCategories = async (categoryId) => {
 };
 
 const getCategoryByName = async (name) => {
+  if (!name) return;
+
   return prisma.category.findUnique({
     where: { name },
+  });
+};
+
+const getCategoryById = async (categoryId) => {
+  if (!categoryId) return;
+
+  return prisma.category.findUnique({
+    where: { id: categoryId },
   });
 };
 
@@ -52,4 +62,5 @@ module.exports = {
   getCategories,
   getCategoryByName,
   deleteCategory,
+  getCategoryById,
 };

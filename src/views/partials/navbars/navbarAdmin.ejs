@@ -1,11 +1,12 @@
 <nav class="sticky top-0 py-5 border-b bg-white border-b-light-gray-400 section__padding z-[9999]">
   <div class="max-w-7xl mx-auto flex items-center justify-between gap-x-8">
     <ul class="flex items-center gap-x-4">
-      <a class="font-mutka font-normal text-lg" href="/">Home</a>
-      <a class="font-mutka font-normal text-lg" href="/user/<%= currentUserUsername %>">Profile</a>
+      <a class="font-source-serif font-normal text-lg" href="/">Home</a>
+      <a class="font-source-serif font-normal text-lg" href="/user/<%= currentUserUsername %>">Profile</a>
+      <a class="font-source-serif font-normal text-lg" href="/category">Category</a>
     </ul>
     <form class="d-none d-lg-block" action="/logout?_method=DELETE" method="post">
-      <button type="submit" class="btn__primary !py-1 !rounded-full">
+      <button type="submit" class="btn__primary !py-1.5 !rounded-full">
         Logout
       </button>
     </form>

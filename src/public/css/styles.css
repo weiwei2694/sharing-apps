@@ -97,7 +97,7 @@
 
 .detailPost__modal-button__delete {
   margin-bottom: 12px;
-  background-color: var(--red-100);
+  background-color: var(--red-100) !important;
   color: white;
 }
 

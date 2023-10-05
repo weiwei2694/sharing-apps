@@ -1,33 +1,39 @@
-<section class="d-flex flex-column">
-  <div class="d-flex justify-content-between align-items-end">
+<section class="flex flex-col space-y-6 py-12 2xl:py-16">
+  <div class="flex justify-between items-center">
     <h1 class="detailPost__heading">Categories</h1>
-    <a href="/category/create" class="btn btn-primary">Create Category</a>
+    <a href="/category/create" class="btn__primary !py-2 !rounded-full">Create Category</a>
   </div>
-  <table class="table">
+  <table class="w-full text-sm text-left text-gray-500">
     <thead>
       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Total Post</th>
-        <th scope="col">Handle</th>
+        <th scope="col" class="px-6 py-3">Name</th>
+        <th scope="col" class="px-6 py-3">Total Post</th>
+        <th scope="col" class="px-6 py-3">Handle</th>
       </tr>
     </thead>
     <tbody>
       <% if (typeof categories !=='undefined' ) { %>
         <% categories.forEach(function(category) { %>
-          <tr>
-            <th scope="row">
+          <tr class="bg-white border-b">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
               <%= category.name %>
             </th>
-            <td>
+            <td class="px-6 py-4">
               <%= category.posts.length %>
             </td>
-            <td class="d-flex align-items-center gap-2">
-              <button class="btn btn-danger" data-categoryid="<%= category.id %>" id="myBtn">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-              <a class="btn btn-success" href="/?category=<%= category.name %>" target="_blank">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </a>
+            <td class="px-6 py-4">
+              <ul class="flex items-center gap-x-3">
+                <li>
+                  <button type="button" class="text-red-600" data-categoryid="<%= category.id %>" id="myBtn">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </li>
+                <li>
+                  <a class="text-green-600" href="/?category=<%= category.name %>" target="_blank">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </a>
+                </li>
+              </ul>
             </td>
           </tr>
           <% }) %>
@@ -41,14 +47,17 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close" style="display: none;">&times;</span>
-    <h3 class="detailPost__modal-heading">Delete Category?</h3>
-    <p class="detailPost__modal-paragraph">This action can't be undone and will remove the category from your profile,
-      the timeline of any posts in this category, and from search results.</p>
-    <div class="d-flex flex-column">
+    <div>
+      <h3 class="detailPost__modal-heading">Delete Category?</h3>
+      <p class="detailPost__modal-paragraph">This action can't be undone and will remove the category from your profile,
+        the timeline of any posts in this category, and from search results.</p>
+    </div>
+    <div class="flex flex-col">
       <form method="post" id="delete-category-form">
         <button type="submit" class="detailPost__modal-button detailPost__modal-button__delete">Delete</button>
       </form>
-      <button class="detailPost__modal-button detailPost__modal-button__cancel" onclick="cancelDelete()">Cancel</button>
+      <button type="button" class="detailPost__modal-button detailPost__modal-button__cancel"
+        onclick="cancelDelete()">Cancel</button>
     </div>
   </div>
 </div>

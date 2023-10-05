@@ -19,7 +19,7 @@
 }
 
 .form {
-  @apply p-12 rounded-xl bg-light-gray-100 flex flex-col space-y-8;
+  @apply max-sm:p-0 sm:p-12 rounded-xl max-sm:bg-none  sm:bg-light-gray-100 flex flex-col max-sm:space-y-6 sm:space-y-8;
 }
 
 .form__label {

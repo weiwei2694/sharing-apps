@@ -7,13 +7,25 @@ function layout(role) {
 }
 
 const getHome = catchAsync(async (req, res) => {
-  const posts = await postService.getPosts();
+  const currentCategory = req.query.category;
+
+  let posts;
+  if (typeof currentCategory !== 'undefined') {
+    const result = await postService.getPostsByCategory(currentCategory);
+    posts = result?.posts;
+  } else {
+    posts = await postService.getPosts();
+  }
+
+  const categories = await categoryService.getCategories();
 
   res.render('pages/home', {
     layout: layout(req.user.role),
     user: req.user,
     currentUserUsername: req.user.username,
     posts,
+    categories,
+    currentCategory,
   });
 });
 

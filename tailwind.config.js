@@ -14,7 +14,8 @@ module.exports = {
         "light-gray-600": "#6C757D",
         "light-gray-700": "#495057",
         "light-gray-800": "#343A40",
-        "light-gray-900": "#212529"
+        "light-gray-900": "#212529",
+        "black-100": "#242424"
       }
     },
   },

@@ -11,7 +11,7 @@
 }
 
 .section__padding {
-  @apply px-6 lg:px-0;
+  @apply px-6 2xl:px-0;
 }
 
 .alert__danger {
@@ -32,4 +32,8 @@
 
 .btn__primary {
   @apply py-3 px-6 rounded-lg bg-black text-white font-bold font-mukta;
+}
+
+.btn__ghost {
+  @apply py-1 px-4 rounded-full bg-light-gray-100 hover:bg-light-gray-200 transition-all text-black-100 font-source-serif;
 }

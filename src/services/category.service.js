@@ -36,6 +36,8 @@ const getCategories = async (categoryId) => {
 };
 
 const getCategoryByName = async (name) => {
+  if (!name) return;
+
   return prisma.category.findUnique({
     where: { name },
   });

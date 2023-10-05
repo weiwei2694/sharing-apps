@@ -1,46 +1,103 @@
-<section class="d-flex flex-column gap-2 gap-md-4">
-  <div class="d-flex justify-content-end">
-    <a href="/post/create" class="btn btn-primary">Create Post</a>
-  </div>
-  <div class="card__layout-container">
-    <% if (typeof posts !=='undefined' ) { %>
-      <% posts.forEach(function(post) { %>
-        <div class="card" style="height: fit-content;">
-          <div class="card-header d-flex align-items-center gap-1">
-            <a style="font-family: var(--font-mukta); color: var(--black-100);" href="/user/<%= post.user.username %>">
-              @<%= post.user.username %>
+<section class="flex min-h-screen">
+  <div class="flex flex-1">
+    <div
+      class="flex flex-col w-full max-2xl:py-12 2xl:p-16 2xl:ps-0 max-2xl:border-none 2xl:border-r border-r-light-gray-400">
+      <ul class="mb-6 flex flex-nowrap gap-x-8 border-b border-b-light-gray-400 w-full">
+        <% if (typeof currentCategory==='undefined' ) { %>
+          <li class="font-mukta text-base text-black-100 pb-3 border-b border-b-light-gray-900">
+            <a href="/">
+              For You
             </a>
-            ·
-            <italic class="underline" style="font-size: 13px; font-family: var(--font-mukta); color: var(--black-100);">
-              <u>
-                <%= new Date(post.createdAt).toLocaleDateString() %>
-              </u>
-            </italic>
-          </div>
-          <div class="card-body">
-            <h5 class="cart-title">
-              <a href="/post/<%= post.id %>">
-                <u>
-                  <%= post.title %>
-                </u>
+          </li>
+          <% } else { %>
+            <li class="font-mukta text-base text-black-100">
+              <a href="/">
+                For You
               </a>
-            </h5>
-            <p class="card-text">
-              <%= post.body.slice(0, 99) %>
-              <% if (post.body.length > 99) { %>
-                <a href="<%= post.id %>">... Go to post</a>
-              <% } %>
-            </p>
-            <div class="d-flex gap-2 align-items-center ">
-              <% if (typeof post.category !== 'undefined') { %>
-                <% post.category.forEach(function(category) { %>
-                  <p style="color: var(--black-100); font-family: var(--font-mukta);">#<%= category.name.toLowerCase() %></p>
-                <% }) %>
-              <% } %>
+            </li>
+            <% } %>
+              <% if (typeof categories !=='undefined' ) { %>
+                <% categories.forEach(function (category){ %>
+                  <% if (typeof currentCategory !=='undefined' &&
+                    currentCategory.toLowerCase()===category.name.toLowerCase()) { %>
+                    <li class="font-mukta text-base text-black-100 pb-3 border-b border-b-light-gray-900">
+                      <a href="/?category=<%= category.name %>">
+                        <%= category.name %>
+                      </a>
+                    </li>
+                    <% } else { %>
+                      <li class="font-mukta text-base text-black-100">
+                        <a href="/?category=<%= category.name %>">
+                          <%= category.name %>
+                        </a>
+                      </li>
+                      <% } %>
+                        <% }) %>
+                          <% } %>
+      </ul>
+      <div class="flex flex-col space-y-4">
+        <% if (posts?.length) { %>
+          <% posts.forEach(function(post) { %>
+            <div class="flex flex-col border-b border-b-light-gray-400 py-4">
+              <div class="flex items-center gap-x-2 w-fit">
+                <span class="text-xs -mt-1">
+                  <% if (post.user.role==='user' ) { %>
+                    <i class="fa-solid fa-user text-black-100"></i>
+                    <% } else { %>
+                      <i class="fa-solid fa-crown" style="color: gold;"></i>
+                      <% } %>
+                </span>
+                <h4 class="flex items-center gap-x-1 text-sm font-mukta text-black-100 w-fit">
+                  <a href="/user/<%= post.user.username %>" target="_blank">
+                    <%= post.user.name %>
+                  </a>
+                  ·
+                  <span class="text-light-gray-800">
+                    <%= new Date(post.createdAt).toLocaleDateString() %>
+                  </span>
+                </h4>
               </div>
-          </div>
+              <h2 class="font-extrabold font-mukta text-2xl text-black-100 cursor-pointer w-fit">
+                <a href="/post/<%= post.id %>" target="_blank">
+                  <%= post.title %>
+                </a>
+              </h2>
+              <p class="whitespace-pre-line -mt-4 font-source-serif font-normal text-black-100">
+                <%= post.body.slice(0, 99) %>
+                  <% if (post.body.length> 99) { %>
+                    <a href="/post/<%= post.id %>">...Go to post</a>
+                    <% } %>
+              </p>
+            </div>
+            <% }) %>
+              <% } else { %>
+                <div class="flex justify-start items-start max-sm:mt-6 sm:mt-12">
+                  <p class="text-light-gray-600 font-medium font-source-serif">No Results</p>
+                </div>
+                <% } %>
+      </div>
+    </div>
+    <div
+      class="w-full max-w-[350px] max-2xl:hidden max-2xl:py-6 max-2xl:px-0 2xl:block 2xl:p-16 2xl:ps-6 2xl:pe-0 flex flex-col space-y-6">
+      <div class="flex border-b border-b-light-gray-400 pb-6">
+        <button type="button" class="btn__primary !py-2 !rounded-full w-full">
+          <a href="/post/create">Create Post</a>
+        </button>
+      </div>
+      <div class="flex flex-col space-y-2 border-b border-b-light-gray-400 pb-6">
+        <h3 class="font-mukta font-medium text-black-100 text-lg">Recommended topics</h3>
+        <div class="space-y-3 columns-sm">
+          <% if (typeof categories !=='undefined' ) { %>
+            <% categories.sort((a,b)=> b.posts.length - a.posts.length).slice(0,6).forEach(function(category) { %>
+              <button class="btn__ghost">
+                <a href="/?category=<%= category.name %>" target="_blank">
+                  <%= category.name %>
+                </a>
+              </button>
+              <% }) %>
+                <% } %>
         </div>
-        <% }) %>
-          <% } %>
+      </div>
+    </div>
   </div>
 </section>

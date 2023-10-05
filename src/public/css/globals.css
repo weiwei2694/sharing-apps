@@ -7,6 +7,11 @@
   --red-100: #f4212e;
 }
 
+/* *::-webkit-scrollbar {
+  display: none;
+} */
+
+
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */

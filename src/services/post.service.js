@@ -72,9 +72,26 @@ const getPost = async (postId) => {
   });
 };
 
+const getPostsByCategory = async (categoryName) => {
+  if (!categoryName) return;
+
+  return prisma.category.findFirst({
+    where: { name: categoryName },
+    include: {
+      posts: {
+        include: {
+          category: true,
+          user: true,
+        },
+      },
+    },
+  });
+};
+
 module.exports = {
   createPost,
   getPost,
   getPosts,
   deletePost,
+  getPostsByCategory,
 };

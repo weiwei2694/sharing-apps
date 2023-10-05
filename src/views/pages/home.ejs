@@ -1,44 +1,46 @@
 <section class="d-flex flex-column gap-2 gap-md-4">
-  <% if(typeof success_msg !=='undefined' ) { %>
-    <div class="alert alert-success" role="alert">
-      <%= success_msg %>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <% } %>
-      <div class="d-flex justify-content-end">
-        <a href="/post/create" class="btn btn-primary">Create Post</a>
-      </div>
-      <div class="card__layout-container">
-        <% if (typeof posts !=='undefined' ) { %>
-          <% posts.forEach(function(post) { %>
-            <div class="card" style="height: fit-content;">
-              <div class="card-header d-flex align-items-center gap-1">
-                <a href="/user/<%= post.user.id %>">
-                  @<%= post.user.username %>
-                </a>
-                ·
-                <italic class="underline" style="font-size: 13px;">
-                  <u>
-                    <%= new Date(post.createdAt).toLocaleDateString() %>
-                  </u>
-                </italic>
-              </div>
-              <div class="card-body">
-                <h5 class="cart-title">
-                  <a href="/post/<%= post.id %>">
-                    <u>
-                      <%= post.title %>
-                    </u>
-                  </a>
-                </h5>
-                <p class="card-text">
-                  <%= post.body %>
-                </p>
-              </div>
-            </div>
-            <% }) %>
+  <div class="d-flex justify-content-end">
+    <a href="/post/create" class="btn btn-primary">Create Post</a>
+  </div>
+  <div class="card__layout-container">
+    <% if (typeof posts !=='undefined' ) { %>
+      <% posts.forEach(function(post) { %>
+        <div class="card" style="height: fit-content;">
+          <div class="card-header d-flex align-items-center gap-1">
+            <a style="font-family: var(--font-mukta); color: var(--black-100);" href="/user/<%= post.user.id %>">
+              @<%= post.user.username %>
+            </a>
+            ·
+            <italic class="underline" style="font-size: 13px; font-family: var(--font-mukta); color: var(--black-100);">
+              <u>
+                <%= new Date(post.createdAt).toLocaleDateString() %>
+              </u>
+            </italic>
+          </div>
+          <div class="card-body">
+            <h5 class="cart-title">
+              <a href="/post/<%= post.id %>">
+                <u>
+                  <%= post.title %>
+                </u>
+              </a>
+            </h5>
+            <p class="card-text">
+              <%= post.body.slice(0, 99) %>
+              <% if (post.body.length > 99) { %>
+                <a href="<%= post.id %>">... Go to post</a>
               <% } %>
-      </div>
+            </p>
+            <div class="d-flex gap-2 align-items-center ">
+              <% if (typeof post.category !== 'undefined') { %>
+                <% post.category.forEach(function(category) { %>
+                  <p style="color: var(--black-100); font-family: var(--font-mukta);">#<%= category.name.toLowerCase() %></p>
+                <% }) %>
+              <% } %>
+              </div>
+          </div>
+        </div>
+        <% }) %>
+          <% } %>
+  </div>
 </section>

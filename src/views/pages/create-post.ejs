@@ -1,1 +1,57 @@
-<h1>Create Post</h1>
+<section class="row d-flex justify-content-center">
+  <div class="col-lg-6">
+    <% if (typeof errors !=='undefined' ) { %>
+      <% errors.forEach(function(error) { %>
+        <div class="alert alert-danger" role="alert">
+          <%= error %>
+        </div>
+        <% }) %>
+          <% } %>
+            <form action="/post/create" method="post">
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" name="title" id="title" value=<%=typeof title !=="undefined" ?
+                  title : "" %>
+                >
+              </div>
+              <div class="mb-3">
+                <label for="body" class="form-label">body</label>
+                <input type="text" class="form-control" name="body" id="body" value=<%=typeof body !=="undefined" ? body
+                  : "" %>
+                >
+              </div>
+              <div class="mb-3">
+                <label for="first-category">First Category</label>
+                <select id="first-category" name="firstCategory" class="form-select">
+                  <option selected value="undefined">Select Category</option>
+                  <% if (typeof categories !=="undefined" ) { %>
+                    <% categories.forEach(function(category) { %>
+                      <option value="<%= category.id %>">
+                        <%= category.name %>
+                      </option>
+                      <% }) %>
+                        <% } %>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="second-category">Second Category</label>
+                <select id="second-category" name="secondCategory" class="form-select">
+                  <option selected value="undefined">Select Category</option>
+                  <% if (typeof categories !=="undefined" ) { %>
+                    <% categories.forEach(function(category) { %>
+                      <option value="<%= category.id %>">
+                        <%= category.name %>
+                      </option>
+                      <% }) %>
+                        <% } %>
+                </select>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                Create Post
+              </button>
+            </form>
+  </div>
+</section>

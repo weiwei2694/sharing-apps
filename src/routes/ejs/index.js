@@ -15,7 +15,7 @@ const {
   getRegister,
 } = viewController;
 const { register, logout } = authController;
-const { deletePost } = postController;
+const { deletePost, createPost } = postController;
 const { updateUser } = userController;
 
 const router = express.Router();
@@ -25,7 +25,9 @@ router.get('/', checkAuthenticated, getHome);
 router.get('/user/:username', checkAuthenticated, getUsernameProfile);
 router.put('/user/:userId', checkAuthenticated, updateUser);
 router.get('/user/:username/edit-profile', checkAuthenticated, getUsernameProfileEdit);
+// post
 router.get('/post/create', checkAuthenticated, getPostCreate);
+router.post('/post/create', checkAuthenticated, createPost);
 router.route('/post/:postId').get(checkAuthenticated, getPostDetailPost).delete(checkAuthenticated, deletePost);
 // admin route
 router.get('/category', checkAuthenticated, adminRoleLocal, getCategory);

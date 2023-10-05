@@ -66,8 +66,13 @@ const getUsernameProfileEdit = catchAsync(async (req, res) => {
 });
 
 const getPostCreate = catchAsync(async (req, res) => {
+  const categories = await categoryService.getCategories();
+
   res.render('pages/create-post', {
+    layout: 'layouts/protect',
     user: req.user,
+    categories,
+    currentUserUsername: req.user.username,
   });
 });
 

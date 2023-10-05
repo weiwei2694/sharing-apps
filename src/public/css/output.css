@@ -760,6 +760,11 @@ video {
   padding-bottom: 0.5rem !important;
 }
 
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -768,16 +773,6 @@ video {
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
-}
-
-.py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-.py-10 {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
 }
 
 .pb-3 {
@@ -981,6 +976,7 @@ video {
   padding-bottom: 0.75rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  text-align: center;
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -995,6 +991,7 @@ video {
   padding-bottom: 0.25rem;
   padding-left: 1rem;
   padding-right: 1rem;
+  text-align: center;
   --tw-text-opacity: 1;
   color: rgb(36 36 36 / var(--tw-text-opacity));
   transition-property: all;
@@ -1025,6 +1022,11 @@ video {
   .max-2xl\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
+  }
+
+  .max-2xl\:py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
 
   .max-2xl\:py-6 {

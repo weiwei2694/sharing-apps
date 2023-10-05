@@ -1,28 +1,24 @@
-<section class="row d-flex justify-content-center">
+<section class="py-10 max-2xl:py-20 max-w-4xl mx-auto">
   <div class="col-lg-6">
     <% if (typeof errors !=='undefined' ) { %>
       <% errors.forEach(function(error) { %>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert__danger" role="alert">
           <%= error %>
         </div>
         <% }) %>
           <% } %>
-            <form action="/post/create" method="post">
-              <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" name="title" id="title" value=<%=typeof title !=="undefined" ?
-                  title : "" %>
-                >
+            <form action="/post/create" method="post" class="form">
+              <div class="flex flex-col">
+                <label for="title" class="form__label">Title</label>
+                <input type="text" class="form__input" name="title" id="title">
               </div>
-              <div class="mb-3">
-                <label for="body" class="form-label">body</label>
-                <input type="text" class="form-control" name="body" id="body" value=<%=typeof body !=="undefined" ? body
-                  : "" %>
-                >
+              <div class="flex flex-col">
+                <label for="body" class="form__label">body</label>
+                <textarea rows="8" class="form__input" name="body" id="body"></textarea>
               </div>
-              <div class="mb-3">
-                <label for="first-category">First Category</label>
-                <select id="first-category" name="firstCategory" class="form-select">
+              <div class="flex flex-col">
+                <label for="first-category" class="form__label">First Category</label>
+                <select id="first-category" name="firstCategory" class="form__input">
                   <option selected value="undefined">Select Category</option>
                   <% if (typeof categories !=="undefined" ) { %>
                     <% categories.forEach(function(category) { %>
@@ -33,9 +29,9 @@
                         <% } %>
                 </select>
               </div>
-              <div class="mb-3">
-                <label for="second-category">Second Category</label>
-                <select id="second-category" name="secondCategory" class="form-select">
+              <div class="flex flex-col">
+                <label for="second-category" class="form__label">Second Category</label>
+                <select id="second-category" name="secondCategory" class="form__input">
                   <option selected value="undefined">Select Category</option>
                   <% if (typeof categories !=="undefined" ) { %>
                     <% categories.forEach(function(category) { %>
@@ -48,7 +44,7 @@
               </div>
               <button
                 type="submit"
-                class="btn btn-primary"
+                class="btn__primary"
               >
                 Create Post
               </button>

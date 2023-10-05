@@ -3,6 +3,11 @@ const { postService, categoryService } = require('../../services');
 const catchAsync = require('../../utils/catchAsync');
 const { postValidation } = require('../../validations');
 
+// layout
+function layout(role) {
+  return role === 'admin' ? 'layouts/admin' : 'layouts/protect';
+}
+
 const deletePost = catchAsync(async (req, res) => {
   const { postId } = req.params;
 
@@ -26,7 +31,7 @@ const createPost = catchAsync(async (req, res, next) => {
   const categories = await categoryService.getCategories();
 
   const fields = {
-    layout: 'layouts/protect',
+    layout: layout(req.user.role),
     errors: [],
     currentUserUsername: req.user.username,
     categories,

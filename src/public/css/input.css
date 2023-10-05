@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-source-serif {
+  font-family: 'Source Serif 4', serif;
+}
+
+.font-mukta {
+  font-family: 'Mukta', sans-serif;
+}
+
+.section__padding {
+  @apply px-6 lg:px-0;
+}
+
+.alert__danger {
+  @apply p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50;
+}
+
+.form {
+  @apply p-12 rounded-xl bg-light-gray-100 flex flex-col space-y-8;
+}
+
+.form__label {
+  @apply font-medium text-lg font-mukta text-light-gray-900;
+}
+
+.form__input {
+  @apply placeholder:text-light-gray-700 font-normal py-2 px-4 rounded outline-none bg-white border border-light-gray-200 text-light-gray-800;
+}
+
+.btn__primary {
+  @apply py-3 px-6 rounded-lg bg-black text-white font-bold font-mukta;
+}

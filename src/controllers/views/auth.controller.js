@@ -16,7 +16,7 @@ const register = catchAsync(async (req, res, next) => {
   const fields = {
     layout: 'layouts/public',
     errors: [],
-    success_msg: '',
+    success_msg: undefined,
     name,
     username,
     email,

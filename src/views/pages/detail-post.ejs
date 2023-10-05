@@ -1,28 +1,24 @@
-<section class="detailPost">
-  <a href="/" class="detailPost__back">
-    <i class="fa-solid fa-arrow-left" style="color: #242424;"></i>
-    <span style="margin-left: 1rem; font-size: 16px;">
-      Back To Home
-    </span>
-  </a>
-  <div class="d-flex flex-column gap-3">
+<section class="detailPost py-12 2xl:py-16">
+  <div class="flex flex-col space-y-3">
     <h1 class="detailPost__heading">
       <%= post.title %>
     </h1>
-    <div class="d-flex justify-content-between">
+    <div class="flex justify-between">
       <h5 class="detailPost__subheading">
-        <% if (post.user.role==='user' ) { %>
-          <i class="fa-solid fa-user" style="color: #242424;"></i>
-          <% } else { %>
-            <i class="fa-solid fa-crown" style="color: gold;"></i>
-            <% } %>
-              <%= post.user.name %>
-                ·
-                <italic class="underline" style="font-size: 15px;">
-                  <u>
-                    <%= new Date(post.createdAt).toLocaleDateString() %>
-                  </u>
-                </italic>
+        <p class="-mt-0.5">
+          <% if (post.user.role==='user' ) { %>
+            <i class="fa-solid fa-user" style="color: #242424;"></i>
+            <% } else { %>
+              <i class="fa-solid fa-crown" style="color: gold;"></i>
+              <% } %>
+        </p>
+        <%= post.user.name %>
+          ·
+          <italic class="underline" style="font-size: 15px;">
+            <u>
+              <%= new Date(post.createdAt).toLocaleDateString() %>
+            </u>
+          </italic>
       </h5>
       <div class="dropdown">
         <button type="button" onclick="myFunction()" class="btn btn-light dropbtn">
@@ -59,10 +55,12 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close" style="display: none;">&times;</span>
-    <h3 class="detailPost__modal-heading">Delete Post?</h3>
-    <p class="detailPost__modal-paragraph">This can’t be undone and it will be removed from your profile, the timeline
-      of any accounts that follow you, and from search results. </p>
-    <div class="d-flex flex-column">
+    <div>
+      <h3 class="detailPost__modal-heading">Delete Post?</h3>
+      <p class="detailPost__modal-paragraph">This can’t be undone and it will be removed from your profile, the timeline
+        of any accounts that follow you, and from search results. </p>
+    </div>
+    <div class="flex flex-col">
       <form action="/post/<%= post.id %>?_method=DELETE" method="post">
         <button type="submit" class="detailPost__modal-button detailPost__modal-button__delete">Delete</button>
       </form>

@@ -4,12 +4,11 @@ const catchAsync = require('../../utils/catchAsync');
 const { postService } = require('../../services');
 
 const getPosts = catchAsync(async (req, res) => {
-  const { userId } = req.query.userId;
-  const result = await postService.getPosts(userId);
+  const result = await postService.getPosts();
 
   res.status(httpStatus.OK).send({
     status: httpStatus.OK,
-    message: 'Get Users Success',
+    message: 'Get Posts Success',
     data: result,
   });
 });

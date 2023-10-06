@@ -17,7 +17,6 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check **/*.js",
     "prettier:fix": "prettier --write **/*.js",
-    "prepare": "husky install",
     "devcss": "npx tailwindcss -i ./src/public/css/input.css -o ./src/public/css/output.css -w"
   },
   "keywords": [

@@ -40,14 +40,12 @@ const getUsernameProfile = catchAsync(async (req, res) => {
     });
   }
 
-  const posts = await postService.getPosts(currentUser.id);
-
   const fields = {
     layout: layout(req.user.role),
     enabledEditing: true,
     user: currentUser,
     currentUserUsername: req.user.username,
-    posts,
+    posts: currentUser.posts,
   };
 
   const isSameUserId = currentUser.id === req.user.id;

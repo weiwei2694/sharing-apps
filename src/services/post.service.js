@@ -38,22 +38,7 @@ const deletePost = async (postId) => {
   });
 };
 
-const getPosts = async (userId) => {
-  if (userId) {
-    const userPosts = await prisma.user.findUnique({
-      where: { id: userId },
-      include: {
-        posts: {
-          include: {
-            category: true,
-          },
-        },
-      },
-    });
-
-    return userPosts.posts;
-  }
-
+const getPosts = async () => {
   return prisma.post.findMany({
     include: {
       category: true,

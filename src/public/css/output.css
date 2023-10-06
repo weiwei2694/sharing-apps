@@ -629,6 +629,11 @@ video {
        columns: 24rem;
 }
 
+.columns-md {
+  -moz-columns: 28rem;
+       columns: 28rem;
+}
+
 .flex-col {
   flex-direction: column;
 }

@@ -70,6 +70,17 @@
                     <a href="/post/<%= post.id %>">...Go to post</a>
                     <% } %>
               </p>
+              <div class="columns-md">
+                <% if (post?.category) { %>
+                  <% post.category.forEach(function(category) { %>
+                    <button class="btn__ghost">
+                      <a href="/?category=<%= category.name %>" target="_blank">
+                        <%= category.name %>
+                      </a>
+                    </button>
+                    <% }) %>
+                      <% } %>
+              </div>
             </div>
             <% }) %>
               <% } else { %>

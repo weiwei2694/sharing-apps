@@ -10,20 +10,7 @@ const createCategory = async (categoryBody) => {
   });
 };
 
-const getCategories = async (categoryId) => {
-  if (typeof categoryId !== 'undefined') {
-    return prisma.category.findMany({
-      where: { id: categoryId },
-      include: {
-        posts: {
-          include: {
-            category: true,
-          },
-        },
-      },
-    });
-  }
-
+const getCategories = async () => {
   return prisma.category.findMany({
     include: {
       posts: {
@@ -48,6 +35,13 @@ const getCategoryById = async (categoryId) => {
 
   return prisma.category.findUnique({
     where: { id: categoryId },
+    include: {
+      posts: {
+        include: {
+          category: true,
+        },
+      },
+    },
   });
 };
 

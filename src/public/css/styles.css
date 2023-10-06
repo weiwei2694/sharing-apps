@@ -1,11 +1,24 @@
-.card__layout-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.card__layout-container__paragraph {
-  white-space: break-spaces;
+*::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #ddd;
 }
 
 .detailPost {

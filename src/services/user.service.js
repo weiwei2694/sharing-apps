@@ -24,12 +24,26 @@ const queryUsers = async () => {
 const getUserById = async (id) => {
   return prisma.user.findUnique({
     where: { id },
+    include: {
+      posts: {
+        include: {
+          category: true,
+        },
+      },
+    },
   });
 };
 
 const getUserByUsername = async (username) => {
   return prisma.user.findUnique({
     where: { username },
+    include: {
+      posts: {
+        include: {
+          category: true,
+        },
+      },
+    },
   });
 };
 

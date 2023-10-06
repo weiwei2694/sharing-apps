@@ -7,7 +7,7 @@ const createCategory = {
   }),
 };
 
-const getCategories = {
+const getCategory = {
   params: Joi.object().keys({
     categoryId: Joi.string().optional().custom(objectId),
   }),
@@ -21,6 +21,6 @@ const deleteCategory = {
 
 module.exports = {
   createCategory,
-  getCategories,
+  getCategory,
   deleteCategory,
 };

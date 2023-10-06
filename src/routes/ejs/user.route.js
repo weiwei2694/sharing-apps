@@ -1,10 +1,8 @@
 const express = require('express');
 const { viewController, userController } = require('../../controllers/views');
 const { checkAuthenticated } = require('../../middlewares/auth.local');
-const {
-  getUsernameProfile,
-  getUsernameProfileEdit
-} = viewController
+
+const { getUsernameProfile, getUsernameProfileEdit } = viewController;
 const { updateUser } = userController;
 
 const router = express.Router();

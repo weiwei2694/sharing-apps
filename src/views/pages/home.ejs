@@ -2,39 +2,41 @@
   <div class="flex flex-1">
     <div
       class="flex flex-col w-full max-2xl:py-12 2xl:p-16 2xl:ps-0 max-2xl:border-none 2xl:border-r border-r-light-gray-400">
-      <ul class="mb-6 flex flex-nowrap gap-x-8 border-b border-b-light-gray-400 w-full">
-        <% if (typeof currentCategory==='undefined' ) { %>
-          <li class="font-mukta text-base text-black-100 pb-3 border-b border-b-light-gray-900">
-            <a href="/">
-              For You
-            </a>
-          </li>
-          <% } else { %>
-            <li class="font-mukta text-base text-black-100">
+      <div class="mb-6 w-[700px] overflow-x-auto pb-2">
+        <ul class="whitespace-nowrap flex flex-nowrap gap-x-12 border-b border-b-light-gray-400">
+          <% if (typeof currentCategory==='undefined' ) { %>
+            <li class="font-mukta text-base text-black-100 pb-3 border-b border-b-light-gray-900">
               <a href="/">
                 For You
               </a>
             </li>
-            <% } %>
-              <% if (typeof categories !=='undefined' ) { %>
-                <% categories.forEach(function (category){ %>
-                  <% if (typeof currentCategory !=='undefined' &&
-                    currentCategory.toLowerCase()===category.name.toLowerCase()) { %>
-                    <li class="font-mukta text-base text-black-100 pb-3 border-b border-b-light-gray-900">
-                      <a href="/?category=<%= category.name %>">
-                        <%= category.name %>
-                      </a>
-                    </li>
-                    <% } else { %>
-                      <li class="font-mukta text-base text-black-100">
+            <% } else { %>
+              <li class="font-mukta text-base text-black-100">
+                <a href="/">
+                  For You
+                </a>
+              </li>
+              <% } %>
+                <% if (typeof categories !=='undefined' ) { %>
+                  <% categories.forEach(function (category){ %>
+                    <% if (typeof currentCategory !=='undefined' &&
+                      currentCategory.toLowerCase()===category.name.toLowerCase()) { %>
+                      <li class="font-mukta text-base text-black-100 pb-3 border-b border-b-light-gray-900">
                         <a href="/?category=<%= category.name %>">
                           <%= category.name %>
                         </a>
                       </li>
-                      <% } %>
-                        <% }) %>
-                          <% } %>
-      </ul>
+                      <% } else { %>
+                        <li class="font-mukta text-base text-black-100">
+                          <a href="/?category=<%= category.name %>">
+                            <%= category.name %>
+                          </a>
+                        </li>
+                        <% } %>
+                          <% }) %>
+                            <% } %>
+        </ul>
+      </div>
       <div class="flex flex-col space-y-4">
         <% if (posts?.length) { %>
           <% posts.forEach(function(post) { %>
@@ -68,6 +70,17 @@
                     <a href="/post/<%= post.id %>">...Go to post</a>
                     <% } %>
               </p>
+              <div class="columns-md">
+                <% if (post?.category) { %>
+                  <% post.category.forEach(function(category) { %>
+                    <button class="btn__ghost">
+                      <a href="/?category=<%= category.name %>" target="_blank">
+                        <%= category.name %>
+                      </a>
+                    </button>
+                    <% }) %>
+                      <% } %>
+              </div>
             </div>
             <% }) %>
               <% } else { %>

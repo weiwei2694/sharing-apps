@@ -4,13 +4,27 @@ const catchAsync = require('../../utils/catchAsync');
 const { categoryService } = require('../../services');
 
 const getCategories = catchAsync(async (req, res) => {
-  const { categoryId } = req.params;
-  const result = await categoryService.getCategories(categoryId);
+  const result = await categoryService.getCategories();
 
   res.status(httpStatus.OK).send({
     status: httpStatus.OK,
     message: 'Get Categories Success',
     data: result,
+  });
+});
+
+const getCategory = catchAsync(async (req, res) => {
+  const { categoryId } = req.params;
+
+  const existingCategory = await categoryService.getCategoryById(categoryId);
+  if (!existingCategory) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
+  }
+
+  res.status(httpStatus.OK).json({
+    status: httpStatus.OK,
+    message: 'Get category success',
+    data: existingCategory
   });
 });
 
@@ -35,7 +49,7 @@ const createCategory = catchAsync(async (req, res) => {
 const deleteCategory = catchAsync(async (req, res) => {
   const { categoryId } = req.params;
 
-  const existingCategory = await categoryService.getCategories(categoryId);
+  const existingCategory = await categoryService.getCategoryById(categoryId);
   if (!existingCategory) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
   }
@@ -47,6 +61,7 @@ const deleteCategory = catchAsync(async (req, res) => {
 
 module.exports = {
   getCategories,
+  getCategory,
   createCategory,
   deleteCategory,
 };

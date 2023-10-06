@@ -1,6 +1,6 @@
 const express = require('express');
-const { checkNotAuthenticated, checkAuthenticated } = require('../../middlewares/auth.local');
 const passport = require('passport');
+const { checkNotAuthenticated, checkAuthenticated } = require('../../middlewares/auth.local');
 const { viewController, authController } = require('../../controllers/views');
 
 const { getLogin, getRegister } = viewController;
